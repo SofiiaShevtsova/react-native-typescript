@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Children, useEffect, useState} from 'react';
 import {
   TextInput,
   View,
@@ -9,12 +9,12 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   PermissionsAndroid,
-  StyleSheet,
 } from 'react-native';
 import Contacts from 'react-native-contacts';
-import {ContactItem} from './ContactItem';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {ContactItem} from './ContactItem';
 import {filter} from '../../services/filterFunction';
+import {styles} from '../../styles/styles';
 
 export const Home = ({navigation, route}) => {
   const contactForRemove = route.params?.removeContact;
@@ -29,10 +29,11 @@ export const Home = ({navigation, route}) => {
 
   const removeContact = cont => {
     if (cont) {
-      const index = contactsList.findIndex(
+      const findContact = contactsList.find(
         contact => contact.givenName === cont,
       );
-      if (index !== -1) {
+      if (findContact) {
+        Contacts.deleteContact(findContact.recordID);
         const newList = contactsList.filter(
           contact => contact.givenName !== contactForRemove,
         );
@@ -49,6 +50,7 @@ export const Home = ({navigation, route}) => {
         contact => contact.givenName === cont.givenName,
       );
       if (index === -1) {
+        Contacts.addContact(cont);
         const newList = [...contactsList, cont];
         setContactsList(newList);
       }
@@ -92,7 +94,7 @@ export const Home = ({navigation, route}) => {
               <TextInput
                 placeholder="Search"
                 placeholderTextColor="#aaaaaa"
-                style={styles.input}
+                style={styles.inputHome}
                 value={filterQuery}
                 onChangeText={text => {
                   setFilter(text.trim().toLowerCase());
@@ -118,40 +120,10 @@ export const Home = ({navigation, route}) => {
         )}
       </View>
       <Pressable
-        style={styles.button}
+        style={styles.buttonAdd}
         onPress={() => navigation.navigate('Add Contact')}>
         <AntDesign name="pluscircle" color="rgb(0, 150, 255)" size={70} />
       </Pressable>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgb(250, 250, 250)',
-  },
-  input: {
-    margin: 20,
-    paddingLeft: 35,
-    paddingRight: 5,
-    paddingVertical: 5,
-    backgroundColor: 'rgb(255, 255, 255)',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'rgb(150, 150, 150)',
-  },
-  button: {
-    position: 'absolute',
-    right: 20,
-    bottom: 30,
-  },
-  inputBox: {
-    position: 'relative',
-  },
-  search: {
-    position: 'absolute',
-    top: 30,
-    left: 30,
-  },
-});

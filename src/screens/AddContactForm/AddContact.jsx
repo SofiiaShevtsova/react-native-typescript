@@ -8,9 +8,9 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  StyleSheet,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {styles} from '../../styles/styles';
 
 export const AddContact = ({navigation}) => {
   const [givenName, setName] = useState('');
@@ -76,7 +76,7 @@ export const AddContact = ({navigation}) => {
           </Text>
           <Pressable
             onPress={onAddBtnClick}
-            style={styles.button}
+            style={{...styles.button, ...styles.add}}
             disabled={!givenName && !number ? true : false}>
             <Ionicons name="add-outline" color="#000000" size={20} />
             <Text style={styles.text}>Add Contact</Text>
@@ -86,36 +86,3 @@ export const AddContact = ({navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'rgb(250, 250, 250)',
-  },
-  text: {
-    fontSize: 15,
-    marginBottom: 5,
-  },
-  textError: {
-    fontSize: 10,
-    color: 'rgb(255, 0, 0)',
-    marginBottom: 10,
-  },
-  input: {
-    width: '100%',
-    paddingVertical: 5,
-    borderBottomColor: 'rgb(150, 150, 150)',
-    borderBottomWidth: 1,
-    fontSize: 18,
-  },
-  button: {
-    width: 150,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: 'rgb(50, 150, 255)',
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 5,
-  },
-});

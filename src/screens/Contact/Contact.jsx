@@ -5,12 +5,12 @@ import {
   Image,
   Text,
   Pressable,
-  StyleSheet,
   Linking,
   Alert,
   Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {styles} from '../../styles/styles';
 
 export const Contact = ({route, navigation}) => {
   const contact = route.params.contact;
@@ -43,7 +43,7 @@ export const Contact = ({route, navigation}) => {
           source={{
             uri: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
           }}
-          style={styles.image}
+          style={styles.imageContact}
           alt="user"
         />
       </View>
@@ -68,57 +68,3 @@ export const Contact = ({route, navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'rgb(250, 250, 250)',
-  },
-  input: {
-    width: '100%',
-    marginBottom: 20,
-    paddingVertical: 5,
-    borderBottomColor: 'rgb(150, 150, 150)',
-    borderBottomWidth: 1,
-    fontSize: 18,
-  },
-  text: {
-    color: 'rgb(100, 100, 100)',
-    fontSize: 15,
-  },
-  image: {
-    width: 150,
-    height: 150,
-    marginVertical: 30,
-    borderRadius: 150,
-  },
-  imageBox: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  btnBox: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 20,
-    justifyContent: 'center',
-  },
-  button: {
-    minWidth: 100,
-    padding: 10,
-    borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 5,
-  },
-  buttonText: {
-    color: 'rgb(255, 255, 255)',
-    fontSize: 15,
-  },
-  delete: {
-    backgroundColor: 'rgb(255, 50, 50)',
-  },
-  call: {
-    backgroundColor: 'rgb(50, 150, 255)',
-  },
-});
