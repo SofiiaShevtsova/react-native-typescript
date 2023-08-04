@@ -6,11 +6,30 @@ import {
   Text,
   Pressable,
   StyleSheet,
+  Platform,
+  Linking,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const Contact = ({route}) => {
   const contact = route.params.contact;
+
+  const callNumber = () => {
+    let phoneNumber = contact.phone;
+    if (Platform.OS !== 'android') {
+      phoneNumber = `telprompt:${contact.phone}`;
+    } else {
+      phoneNumber = `tel:${contact.phone}`;
+    }
+    Linking.canOpenURL(phoneNumber).then(supported => {
+      if (!supported) {
+        Alert.alert('Phone number is not available');
+      } else {
+        return Linking.openURL(phoneNumber);
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -30,8 +49,7 @@ export const Contact = ({route}) => {
       <View style={styles.btnBox}>
         <Pressable
           style={{...styles.button, ...styles.call}}
-          //   onPress={ }
-        >
+          onPress={callNumber}>
           <Ionicons name="call" color="#ffffff" size={20} />
           <Text style={styles.buttonText}>Call</Text>
         </Pressable>
