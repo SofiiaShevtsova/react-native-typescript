@@ -12,9 +12,9 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
+  // SafeAreaView,
+  // StatusBar,
+  // StyleSheet,
 } from 'react-native';
 import Kontakt, {KontaktModule} from 'react-native-kontaktio';
 const {
@@ -25,7 +25,6 @@ const {
   startScanning,
 } = Kontakt;
 import {ContactItem} from './ContactItem';
-// import styles from './Post/stylePosts';
 const kontaktEmitter = new NativeEventEmitter(KontaktModule);
 
 const isAndroid = Platform.OS === 'android';
@@ -53,48 +52,54 @@ const requestLocationPermission = async () => {
   }
 };
 
-const beaconSetup = async () => {
-  if (isAndroid) {
-    const granted = await requestLocationPermission();
-    if (granted) {
-      await connect();
-      await startScanning();
+const beaconSetup = (setContacts: any): any => {
+  return async () => {
+    if (isAndroid) {
+      const granted = await requestLocationPermission();
+      if (granted) {
+        await connect();
+        await startScanning();
+      } else {
+        Alert.alert(
+          'Permission error',
+          'Location permission not granted. Cannot scan for beacons',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      }
     } else {
-      Alert.alert(
-        'Permission error',
-        'Location permission not granted. Cannot scan for beacons',
-        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        {cancelable: false},
-      );
+      await init();
+      await startDiscovery();
+      await startRangingBeaconsInRegion({
+        identifier: '',
+        uuid: 'A4826DE4-1EA9-4E47-8321-CB7A61E4667E',
+        major: 1,
+        minor: 34,
+      });
     }
-  } else {
-    await init();
-    await startDiscovery();
-    await startRangingBeaconsInRegion({
-      identifier: '',
-      uuid: 'A4826DE4-1EA9-4E47-8321-CB7A61E4667E',
-      major: 1,
-      minor: 34,
-    });
-  }
 
-  if (isAndroid) {
-    DeviceEventEmitter.addListener('beaconsDidUpdate', ({beacons, region}) => {
-      console.log('beaconsDidUpdate', {beacons, region});
-    });
-  } else {
-    kontaktEmitter.addListener('didDiscoverDevices', ({beacons}) => {
-      console.log('didDiscoverDevices', {beacons});
-    });
+    if (isAndroid) {
+      DeviceEventEmitter.addListener(
+        'beaconsDidUpdate',
+        ({beacons, region}) => {
+          console.log('beaconsDidUpdate', {beacons, region});
+        },
+      );
+    } else {
+      kontaktEmitter.addListener('didDiscoverDevices', ({beacons}) => {
+        console.log('didDiscoverDevices', {beacons});
+        setContacts(beacons);
+      });
 
-    kontaktEmitter.addListener('didRangeBeacons', ({beacons, region}) => {
-      console.log('didRangeBeacons', {beacons, region});
-    });
-  }
+      kontaktEmitter.addListener('didRangeBeacons', ({beacons, region}) => {
+        console.log('didRangeBeacons', {beacons, region});
+      });
+    }
+  };
 };
 
-export const Home = ({navigation}) => {
-  const [contactsList, setContactsList] = useState(null);
+export const Home = ({navigation}: {navigation: any}) => {
+  const [contactsList, setContactsList] = useState([]);
   const [nameForFins, setName] = useState('');
 
   const keyboardHide = () => {
@@ -103,7 +108,7 @@ export const Home = ({navigation}) => {
 
   useEffect(() => {
     () => {
-      Promise.resolve().then(beaconSetup);
+      Promise.resolve().then(beaconSetup(setContactsList));
 
       return () => {
         if (isAndroid) {
@@ -135,7 +140,7 @@ export const Home = ({navigation}) => {
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
       </View>
-      {contactsList?.length > 0 && (
+      {contactsList.length > 0 && (
         <FlatList
           data={contactsList}
           keyExtractor={(item, ind) => ind.toString()}

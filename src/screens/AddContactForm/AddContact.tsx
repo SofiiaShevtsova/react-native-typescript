@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -10,24 +10,29 @@ import {
   Keyboard,
 } from 'react-native';
 import {Container} from '../../components/commons';
+import {ContactType} from '../../type';
 
-const CreatePosts = ({navigation}) => {
+export const AddContact = ({navigation}: {navigation: any}) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [contact, setContact] = useState(null);
+  const [contact, setContact]: [null | ContactType, any] = useState(null);
 
   const onAddBtnClick = () => {
-    const contact = {
+    const image = '';
+    const newContact = {
       name,
       phone,
+      image,
     };
 
-    setContact(contact);
+    setContact(newContact);
     navigation.navigate('Home');
 
     setName('');
     setPhone('');
   };
+
+  console.log(contact);
 
   const keyboardHide = () => {
     Keyboard.dismiss();
@@ -37,7 +42,7 @@ const CreatePosts = ({navigation}) => {
     <Container>
       <TouchableWithoutFeedback onPress={keyboardHide}>
         <KeyboardAvoidingView
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <View>
             <Text>Name</Text>
             <TextInput
@@ -70,5 +75,3 @@ const CreatePosts = ({navigation}) => {
     </Container>
   );
 };
-
-export default CreatePosts;
