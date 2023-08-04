@@ -112,7 +112,7 @@ export const Home = ({navigation, route}) => {
         {listForShow.length > 0 && (
           <FlatList
             data={listForShow}
-            keyExtractor={(item, ind) => item.givenName + ind}
+            keyExtractor={(item, ind) => item.recordID}
             renderItem={({item}) => (
               <ContactItem contact={item} navigation={navigation} />
             )}
