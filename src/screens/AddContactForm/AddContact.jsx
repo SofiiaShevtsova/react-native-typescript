@@ -13,23 +13,18 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const AddContact = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [contact, setContact] = useState(null);
+  const [givenName, setName] = useState('');
+  const [number, setPhone] = useState('');
 
   const onAddBtnClick = () => {
-    const image = '';
+    const image = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png';
     const newContact = {
-      name,
-      phone,
+      givenName,
+      phoneNumbers: [{label: 'mobile', number: number}],
       image,
     };
 
-    setContact(newContact);
-    navigation.navigate('Home');
-
-    setName('');
-    setPhone('');
+    navigation.navigate('Home', {newContact});
   };
 
   const keyboardHide = () => {
@@ -44,7 +39,7 @@ export const AddContact = ({navigation}) => {
           <Text
             style={{
               ...styles.text,
-              color: name ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
+              color: givenName ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
             }}>
             Name
           </Text>
@@ -52,18 +47,18 @@ export const AddContact = ({navigation}) => {
             placeholder="Name"
             placeholderTextColor="#BDBDBD"
             style={styles.input}
-            value={name}
+            value={givenName}
             onChangeText={text => {
               setName(text.trim().toLowerCase());
             }}
           />
-          <Text style={{...styles.textError, opacity: name ? 0 : 1}}>
+          <Text style={{...styles.textError, opacity: givenName ? 0 : 1}}>
             Phone is required!
           </Text>
           <Text
             style={{
               ...styles.text,
-              color: phone ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
+              color: number ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
             }}>
             Phone Number
           </Text>
@@ -71,18 +66,18 @@ export const AddContact = ({navigation}) => {
             placeholder="Phone Number"
             placeholderTextColor="#BDBDBD"
             style={styles.input}
-            value={phone}
+            value={number}
             onChangeText={text => {
               setPhone(text.trim().toLowerCase());
             }}
           />
-          <Text style={{...styles.textError, opacity: phone ? 0 : 1}}>
+          <Text style={{...styles.textError, opacity: number ? 0 : 1}}>
             Phone is required!
           </Text>
           <Pressable
             onPress={onAddBtnClick}
             style={styles.button}
-            disabled={!name && !phone ? true : false}>
+            disabled={!givenName && !number ? true : false}>
             <Ionicons name="add-outline" color="#000000" size={20} />
             <Text style={styles.text}>Add Contact</Text>
           </Pressable>

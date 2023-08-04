@@ -11,12 +11,14 @@ import {
   PermissionsAndroid,
   StyleSheet,
 } from 'react-native';
-import * as Contacts from 'react-native-contacts';
+import Contacts from 'react-native-contacts';
 import {ContactItem} from './ContactItem';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {filter} from '../../services/filterFunction';
 
-export const Home = ({navigation}) => {
+export const Home = ({navigation, route}) => {
+  const contactForRemove = route.params?.removeContact;
+  const newContact = route.params?.newContact;
   const [contactsList, setContactsList] = useState([]);
   const [listForShow, setList] = useState([]);
   const [filterQuery, setFilter] = useState('');
@@ -24,35 +26,66 @@ export const Home = ({navigation}) => {
   const keyboardHide = () => {
     Keyboard.dismiss();
   };
+
   contactsList.length === 0 &&
     setContactsList([
-      {name: 'Sofiia', phone: '507755251', image: ''},
-      {name: 'Nan', phone: '507885251', image: ''},
+      {
+        givenName: 'Sofiia',
+        phoneNumbers: [{label: 'mobile', number: '507755251'}],
+        image: '',
+      },
+      {
+        givenName: 'Nan',
+        phoneNumbers: [{label: 'mobile', number: '555555555'}],
+        image: '',
+      },
     ]);
 
-  // useEffect(() => {
-  //   PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-  //     title: "Contacts",
-  //     message: "This app would like to view your contacts.",
-  //     buttonPositive: "Accept",
-  //   })
-  //     .then((res) => {
-  //       console.log("Permission: ", res);
-  //       console.log(Contacts);
-  //       Contacts?.getAll()
-  //         .then((contacts) => {
-  //           // work with contacts
-  //           setContactsList(contacts);
-  //           console.log(contacts);
-  //         })
-  //         .catch((e) => {
-  //           console.log(e);
-  //         });
-  //     })
-  //     .catch((error) => {
-  //       console.error("Permission error: ", error);
-  //     });
-  // }, []);
+  const removeContact = cont => {
+    if (cont) {
+      const index = contactsList.findIndex(
+        contact => contact.givenName === cont,
+      );
+      if (index !== -1) {
+        const newList = contactsList.filter(
+          contact => contact.givenName !== contactForRemove,
+        );
+        setContactsList(newList);
+      }
+    }
+  };
+
+  removeContact(contactForRemove);
+
+  const addContact = cont => {
+    if (cont) {
+      const index = contactsList.findIndex(
+        contact => contact.givenName === cont.givenName,
+      );
+      if (index === -1) {
+        const newList = [...contactsList, cont];
+        setContactsList(newList);
+      }
+    }
+  };
+
+  addContact(newContact);
+
+  useEffect(() => {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+      title: 'Contacts',
+      message: 'This app would like to view your contacts.',
+      buttonPositive: 'Accept',
+    })
+      .then(res => {
+        Contacts?.getAll()
+          .then(contacts => {
+            setContactsList(contacts);
+          })
+          .catch(e => {});
+      })
+      .catch(error => {});
+  }, []);
 
   useEffect(() => {
     if (filterQuery) {
@@ -61,7 +94,7 @@ export const Home = ({navigation}) => {
     } else {
       setList(contactsList);
     }
-  }, [contactsList, filterQuery]);
+  }, [filterQuery, contactsList, contactForRemove]);
 
   return (
     <>
@@ -91,7 +124,7 @@ export const Home = ({navigation}) => {
         {listForShow.length > 0 && (
           <FlatList
             data={listForShow}
-            keyExtractor={item => item.name}
+            keyExtractor={(item, ind) => item.givenName + ind}
             renderItem={({item}) => (
               <ContactItem contact={item} navigation={navigation} />
             )}

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Text, View, Pressable, Image, StyleSheet} from 'react-native';
 
 export const ContactItem = ({contact, navigation}) => {
@@ -8,11 +9,11 @@ export const ContactItem = ({contact, navigation}) => {
         <View style={styles.container}>
           <Image
             source={{
-              uri: `https://cdn-icons-png.flaticon.com/512/1077/1077114.png`,
+              uri: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
             }}
             style={styles.image}
           />
-          <Text style={styles.name}>{contact.name}</Text>
+          <Text style={styles.name}>{contact.givenName}</Text>
         </View>
       </Pressable>
     </View>

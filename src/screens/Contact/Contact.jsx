@@ -6,21 +6,22 @@ import {
   Text,
   Pressable,
   StyleSheet,
-  Platform,
   Linking,
   Alert,
+  Platform,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const Contact = ({route}) => {
+export const Contact = ({route, navigation}) => {
   const contact = route.params.contact;
+  const phone = contact.phoneNumbers[0].number;
 
   const callNumber = () => {
-    let phoneNumber = contact.phone;
+    let phoneNumber = phone;
     if (Platform.OS !== 'android') {
-      phoneNumber = `telprompt:${contact.phone}`;
+      phoneNumber = `telprompt:${phone}`;
     } else {
-      phoneNumber = `tel:${contact.phone}`;
+      phoneNumber = `tel:${phone}`;
     }
     Linking.canOpenURL(phoneNumber).then(supported => {
       if (!supported) {
@@ -31,21 +32,25 @@ export const Contact = ({route}) => {
     });
   };
 
+  const removeContact = () => {
+    navigation.navigate('Home', {removeContact: contact.givenName});
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageBox}>
         <Image
           source={{
-            uri: `https://cdn-icons-png.flaticon.com/512/1077/1077114.png`,
+            uri: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
           }}
           style={styles.image}
           alt="user"
         />
       </View>
       <Text style={styles.text}>Name</Text>
-      <TextInput style={styles.input} value={contact.name} />
+      <TextInput style={styles.input} value={contact.givenName} />
       <Text style={styles.text}>Phone number</Text>
-      <TextInput value={contact.phone} style={styles.input} />
+      <TextInput value={phone} style={styles.input} />
       <View style={styles.btnBox}>
         <Pressable
           style={{...styles.button, ...styles.call}}
@@ -55,8 +60,7 @@ export const Contact = ({route}) => {
         </Pressable>
         <Pressable
           style={{...styles.button, ...styles.delete}}
-          //   onPress={ }
-        >
+          onPress={removeContact}>
           <Ionicons name="close" color="#ffffff" size={20} />
           <Text style={styles.buttonText}>Delete</Text>
         </Pressable>
