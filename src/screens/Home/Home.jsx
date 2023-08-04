@@ -27,20 +27,6 @@ export const Home = ({navigation, route}) => {
     Keyboard.dismiss();
   };
 
-  contactsList.length === 0 &&
-    setContactsList([
-      {
-        givenName: 'Sofiia',
-        phoneNumbers: [{label: 'mobile', number: '507755251'}],
-        image: '',
-      },
-      {
-        givenName: 'Nan',
-        phoneNumbers: [{label: 'mobile', number: '555555555'}],
-        image: '',
-      },
-    ]);
-
   const removeContact = cont => {
     if (cont) {
       const index = contactsList.findIndex(
