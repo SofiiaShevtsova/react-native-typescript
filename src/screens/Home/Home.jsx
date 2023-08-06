@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Contacts from 'react-native-contacts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {ContactItem} from './ContactItem';
+import {ProductCard} from './ProductCard';
 import {filter} from '../../services/filterFunction';
 import {styles} from '../../styles/styles';
 
@@ -114,7 +114,7 @@ export const Home = ({navigation, route}) => {
             data={listForShow}
             keyExtractor={(item, ind) => item.recordID}
             renderItem={({item}) => (
-              <ContactItem contact={item} navigation={navigation} />
+              <ProductCard contact={item} navigation={navigation} />
             )}
           />
         )}

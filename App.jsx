@@ -3,8 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from './src/screens/Home/Home';
-import {Contact} from './src/screens/Contact/Contact';
-import {AddContact} from './src/screens/AddContactForm/AddContact';
+import {Contact} from './src/screens/Product/Product';
+import {AddContact} from './src/screens/AddProduct/AddProduct';
 import {constants} from './src/commons/constants';
 
 const Stack = createNativeStackNavigator();

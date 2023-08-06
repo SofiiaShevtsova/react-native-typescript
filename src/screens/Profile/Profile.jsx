@@ -12,7 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../../styles/styles';
 
-export const Contact = ({route, navigation}) => {
+export const Profile = ({route, navigation}) => {
   const contact = route.params.contact;
   const phone = contact.phoneNumbers[0].number;
 

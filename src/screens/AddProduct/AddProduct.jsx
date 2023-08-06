@@ -12,7 +12,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../../styles/styles';
 
-export const AddContact = ({navigation}) => {
+export const AddProduct = ({navigation}) => {
   const [givenName, setName] = useState('');
   const [number, setPhone] = useState('');
 

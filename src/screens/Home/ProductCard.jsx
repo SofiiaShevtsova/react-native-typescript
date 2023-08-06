@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, Pressable, Image} from 'react-native';
 import {styles} from '../../styles/styles';
 
-export const ContactItem = ({contact, navigation}) => {
+export const ProductCard = ({contact, navigation}) => {
   return (
     <View style={styles.card}>
       <Pressable
