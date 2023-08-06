@@ -2,14 +2,19 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useSelector} from '@reduxjs/toolkit';
 import {Home} from './src/screens/Home/Home';
-import {Contact} from './src/screens/Product/Product';
-import {AddContact} from './src/screens/AddProduct/AddProduct';
+import {Product} from './src/screens/Product/Product';
+import {AddProduct} from './src/screens/AddProduct/AddProduct';
+import {Profile} from './src/screens/Profile/Profile';
+import {Registration} from './src/screens/Registration/SignUp';
+import {Login} from './src/screens/Login/SignIn';
 import {constants} from './src/commons/constants';
+import {getUser} from './src/redux/selectorAll';
 
 const Stack = createNativeStackNavigator();
 
-const NavigationBox = () => {
+const NavigationPrivatRoutes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -18,25 +23,36 @@ const NavigationBox = () => {
           component={Home}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Contact Details" component={Contact} />
-        <Stack.Screen name="Add Contact" component={AddContact} />
+        <Stack.Screen name={constants.ROUTES.PRODUCT} component={Product} />
+        <Stack.Screen
+          name={constants.ROUTES.ADD_PRODUCT}
+          component={AddProduct}
+        />
+        <Stack.Screen name={constants.ROUTES.PROFILE} component={Profile} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const NavigationPublicRoutes = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Registration"
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name={constants.ROUTES.LOGIN} component={Login} />
+        <Stack.Screen
+          name={constants.ROUTES.REGISTRATION}
+          component={Registration}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 const App = () => {
-  return (
-    <>
-      <View style={styles.container} /> : <NavigationBox />
-    </>
-  );
+  const user = useSelector(getUser);
+  return <>{user ? <NavigationPrivatRoutes /> : <NavigationPublicRoutes />}</>;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

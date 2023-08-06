@@ -13,7 +13,7 @@ import {useDispatch} from 'react-redux';
 // import {logInUser} from '../../../redux/Auth/authOperation';
 // import styles from '../Style/styleAuthPages';
 
-const Login = ({navigation}) => {
+export const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPass, setShowPass] = useState(true);
@@ -76,5 +76,3 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-
-export default Login;

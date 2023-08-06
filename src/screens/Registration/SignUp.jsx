@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 
-const Registration = ({navigation}) => {
+export const Registration = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -111,5 +111,3 @@ const Registration = ({navigation}) => {
     </View>
   );
 };
-
-export default Registration;
