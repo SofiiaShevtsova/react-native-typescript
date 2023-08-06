@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from './src/screens/Home/Home';
 import {Contact} from './src/screens/Contact/Contact';
 import {AddContact} from './src/screens/AddContactForm/AddContact';
+import {constants} from './src/commons/constants';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ const NavigationBox = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="Home"
+          name={constants.ROUTES.HOME}
           component={Home}
           options={{headerShown: false}}
         />
