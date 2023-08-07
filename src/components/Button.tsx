@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 
-type ButtonProps = {
+export type ButtonProps = {
   children?: JSX.Element;
   name: string;
   onPress: Function;

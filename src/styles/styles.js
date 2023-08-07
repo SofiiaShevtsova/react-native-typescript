@@ -113,4 +113,13 @@ export const styles = StyleSheet.create({
   add: {
     backgroundColor: 'rgb(50, 150, 255)',
   },
+  title: {
+    fontSize: 10,
+  },
+  price: {
+    fontSize: 10,
+  },
+  description: {
+    fontSize: 10,
+  },
 });

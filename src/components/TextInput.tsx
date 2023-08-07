@@ -1,8 +1,9 @@
 import React, {useCallback, useState} from 'react';
-import {Text, TextInput, StyleSheet} from 'react-native';
+import {Text, TextInput, StyleSheet, KeyboardTypeOptions} from 'react-native';
 
-type InputProps = {
+export type InputProps = {
   name: string;
+  type?: KeyboardTypeOptions;
   placeholder?: string;
   defaultValue: string;
   onChange?: Function;
@@ -10,6 +11,7 @@ type InputProps = {
 
 export const Input: React.FC<InputProps> = ({
   name,
+  type = 'default',
   placeholder,
   defaultValue,
   onChange,
@@ -33,6 +35,7 @@ export const Input: React.FC<InputProps> = ({
         {name}
       </Text>
       <TextInput
+        keyboardType={type}
         placeholder={placeholder}
         placeholderTextColor="#BDBDBD"
         style={styles.input}

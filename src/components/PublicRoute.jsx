@@ -7,7 +7,7 @@ import {constants} from '../commons/constants';
 
 const Stack = createNativeStackNavigator();
 
-export const NavigationPublicRoutes: Element = () => {
+export const NavigationPublicRoutes = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator

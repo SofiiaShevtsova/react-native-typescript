@@ -1,10 +1,10 @@
 import {createSlice, isAnyOf} from '@reduxjs/toolkit';
 import {getAllProducts, addProduct, removeProduct} from './productsOperations';
+import {ProductSliceState} from '../../commons/type';
 
-const initialState = {
+const initialState: ProductSliceState = {
   productsList: [],
   isLoading: false,
-  error: null,
 };
 
 export const productsSlice = createSlice({
@@ -41,9 +41,8 @@ export const productsSlice = createSlice({
           addProduct.rejected,
           removeProduct.rejected,
         ),
-        (state, {payload}) => {
+        state => {
           state.isLoading = false;
-          state.error = payload;
         },
       );
   },

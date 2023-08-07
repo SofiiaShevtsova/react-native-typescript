@@ -83,7 +83,7 @@ export const Home: React.FC<HomeProps> = ({navigation}) => {
             data={listForShow}
             keyExtractor={(item: Product) => item.id}
             renderItem={({item}: {item: Product}) => (
-              <ProductCard contact={item} navigation={navigation} />
+              <ProductCard product={item} navigation={navigation} />
             )}
           />
         )}

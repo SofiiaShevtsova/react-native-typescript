@@ -1,14 +1,8 @@
 import {createSlice, isAnyOf} from '@reduxjs/toolkit';
 import {logIn, signUp, logOut, getCurrentUser} from './authOperations';
+import {UserSliceState} from '../../commons/type';
 
-const pending = state => {
-  state.isUserFetching = true;
-};
-const finished = state => {
-  state.isUserFetching = false;
-};
-
-const initialState = {
+const initialState: UserSliceState = {
   user: null,
   isUserFetching: false,
 };
@@ -21,10 +15,10 @@ export const authSlice = createSlice({
     builder
       .addCase(logOut.fulfilled, state => {
         state.user = null;
-        finished(state);
+        state.isUserFetching = false;
       })
       .addCase(logOut.rejected, state => {
-        finished(state);
+        state.isUserFetching = false;
       });
 
     builder
@@ -36,21 +30,21 @@ export const authSlice = createSlice({
           logOut.pending,
         ),
         state => {
-          pending(state);
+          state.isUserFetching = true;
         },
       )
       .addMatcher(
         isAnyOf(signUp.fulfilled, logIn.fulfilled, getCurrentUser.fulfilled),
         (state, {payload}) => {
           state.user = payload;
-          finished(state);
+          state.isUserFetching = false;
         },
       )
       .addMatcher(
         isAnyOf(signUp.rejected, logIn.rejected, getCurrentUser.rejected),
         state => {
           state.user = null;
-          finished(state);
+          state.isUserFetching = false;
         },
       );
   },

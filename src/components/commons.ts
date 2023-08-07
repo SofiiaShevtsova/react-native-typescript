@@ -1,3 +1,4 @@
+export {TabsNavigation} from './TabNavigation';
 export {NavigationPublicRoutes} from './PublicRoute';
 export {NavigationPrivatRoutes} from './PrivatRoute';
 export {Input} from './TextInput';

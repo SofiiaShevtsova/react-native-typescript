@@ -1,23 +1,22 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {apiRequest} from '../../helpers/commons';
+import {apiRequest} from '../../services/apiServices';
 import {constants} from '../../commons/constants';
+import {User} from '../../commons/type';
 
 export const signUp = createAsyncThunk(
   constants.ACTIONS.SIGN_UP,
-  async (newUser, {rejectWithValue}) => {
+  async (newUser: User, {rejectWithValue}) => {
     try {
-      const {
-        token,
-        user: {fullName, email, id},
-      } = await apiRequest.postRequest(
-        constants.REQUEST_API.AUTH + '/sign-up',
-        newUser,
-      );
+      const {token, user}: {token: string; user: User} =
+        await apiRequest.postRequest(
+          constants.REQUEST_API.AUTH + '/sign-up',
+          newUser,
+        );
       apiRequest.setToken(token);
 
-      return {fullName, email, id};
-    } catch (error) {
+      return user;
+    } catch (error: any) {
       return rejectWithValue(error.status);
     }
   },
@@ -25,19 +24,17 @@ export const signUp = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   constants.ACTIONS.SIGN_IN,
-  async (exixtsUser, {rejectWithValue}) => {
+  async (exixtsUser: {email: string; password: string}, {rejectWithValue}) => {
     try {
-      const {
-        token,
-        user: {fullName, email, id},
-      } = await apiRequest.postRequest(
-        constants.REQUEST_API.AUTH + '/sign-in',
-        exixtsUser,
-      );
+      const {token, user}: {token: string; user: User} =
+        await apiRequest.postRequest(
+          constants.REQUEST_API.AUTH + '/sign-in',
+          exixtsUser,
+        );
       apiRequest.setToken(token);
 
-      return {fullName, email, id};
-    } catch (error) {
+      return user;
+    } catch (error: any) {
       return rejectWithValue(error.status);
     }
   },
@@ -52,11 +49,11 @@ export const getCurrentUser = createAsyncThunk(
   constants.ACTIONS.GET_USER,
   async (_, {rejectWithValue}) => {
     try {
-      const {fullName, email, id} = await apiRequest.getRequest(
+      const user: User = await apiRequest.getRequest(
         constants.REQUEST_API.AUTH + '/authenticated-user',
       );
-      return {fullName, email, id};
-    } catch (error) {
+      return user;
+    } catch (error: any) {
       return rejectWithValue(error.status);
     }
   },
