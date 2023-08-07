@@ -8,7 +8,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useAppDispatch} from '../../redux/store';
 import {styles} from '../../styles/styles';
@@ -16,13 +15,9 @@ import {Input, InputProps} from '../../components/TextInput';
 import {ErrorText} from '../../components/ErrorText';
 import {Button, ButtonProps} from '../../components/Button';
 import {addProduct} from '../../redux/product/productsOperations';
-import {AddProductType} from '../../commons/type';
+import {AddProductType, NavigationProps} from '../../commons/type';
 
-type AddProductProps = {
-  navigation: NativeStackNavigationProp<any>;
-};
-
-export const AddProduct: React.FC<AddProductProps> = ({navigation}) => {
+export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
   const [title, setTitle]: [string, Dispatch<SetStateAction<string>>] =
     useState('');
   const [price, setPrice]: [string, Dispatch<SetStateAction<string>>] =
@@ -59,6 +54,10 @@ export const AddProduct: React.FC<AddProductProps> = ({navigation}) => {
     navigation.navigate('Home');
   };
 
+  const onAddImageClick = () => {
+    console.log('image');
+  };
+
   const keyboardHide = () => {
     Keyboard.dismiss();
   };
@@ -81,7 +80,13 @@ export const AddProduct: React.FC<AddProductProps> = ({navigation}) => {
   const btnAddProduct: ButtonProps = {
     name: 'Add Product',
     onPress: onAddBtnClick,
-    color: '',
+    color: 'green',
+  };
+
+  const btnAddImage: ButtonProps = {
+    name: 'Attach Image',
+    onPress: onAddImageClick,
+    color: 'blue',
   };
 
   return (
@@ -90,8 +95,9 @@ export const AddProduct: React.FC<AddProductProps> = ({navigation}) => {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Input {...inputTitleInfo} />
-          <Input {...inputPriceInfo} />
           <ErrorText text={'Title is required!'} isShowed={!!title} />
+          <Input {...inputPriceInfo} />
+          <ErrorText text={'Price is required!'} isShowed={!!price} />
           <Text
             style={{
               ...styles.text,
@@ -100,19 +106,24 @@ export const AddProduct: React.FC<AddProductProps> = ({navigation}) => {
             Description
           </Text>
           <TextInput
+            multiline={true}
+            numberOfLines={4}
             placeholder="Type here"
             placeholderTextColor="#BDBDBD"
             style={styles.input}
             value={description}
             onChangeText={changeDescription}
           />
-          <Text style={{...styles.textError, opacity: description ? 0 : 1}}>
-            Description is required!
-          </Text>
+          <ErrorText
+            text={'Description is required!'}
+            isShowed={!!description}
+          />
           <Button {...btnAddProduct}>
             <Ionicons name="add-outline" color="#000000" size={20} />
           </Button>
-          <Button {...btnAddProduct} />
+          <Button {...btnAddImage}>
+            <Ionicons name="image" color="#000000" size={20} />
+          </Button>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </View>

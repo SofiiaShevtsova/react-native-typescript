@@ -7,6 +7,7 @@ export type InputProps = {
   placeholder?: string;
   defaultValue: string;
   onChange?: Function;
+  secureTextEntry?: boolean;
 };
 
 export const Input: React.FC<InputProps> = ({
@@ -15,6 +16,7 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   defaultValue,
   onChange,
+  secureTextEntry = false,
 }) => {
   const [value, setValue] = useState(defaultValue);
 
@@ -41,6 +43,7 @@ export const Input: React.FC<InputProps> = ({
         style={styles.input}
         value={value}
         onChangeText={handlerOnChange}
+        secureTextEntry={secureTextEntry}
       />
     </>
   );

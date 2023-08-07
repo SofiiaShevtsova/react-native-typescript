@@ -15,16 +15,11 @@ import {useAppDispatch} from '../../redux/store';
 import {ProductCard} from './ProductCard';
 import {filter} from '../../services/filterFunction';
 import {styles} from '../../styles/styles';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {getAllProducts as getProductsList} from '../../redux/selectorAll';
 import {getAllProducts as getAll} from '../../redux/product/productsOperations';
-import {Product} from '../../commons/type';
+import {NavigationProps, Product} from '../../commons/type';
 
-type HomeProps = {
-  navigation: NativeStackNavigationProp<any>;
-};
-
-export const Home: React.FC<HomeProps> = ({navigation}) => {
+export const Home: React.FC<NavigationProps> = ({navigation}) => {
   const productsList: Product[] = useSelector(getProductsList);
   const [listForShow, setList]: [Product[] | never[], any] = useState([]);
   const [filterQuery, setFilter]: [string, Dispatch<SetStateAction<string>>] =

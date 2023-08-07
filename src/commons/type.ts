@@ -1,6 +1,11 @@
 import {store} from '../redux/store';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type State = ReturnType<typeof store.getState>;
+
+export type NavigationProps = {
+  navigation: NativeStackNavigationProp<any>;
+};
 
 export type ProductSliceState = {
   productsList: Product[] | never[];
