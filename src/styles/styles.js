@@ -35,29 +35,29 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
   },
-  // input: {
-  //   width: '100%',
-  //   marginBottom: 20,
-  //   paddingVertical: 5,
-  //   borderBottomColor: 'rgb(150, 150, 150)',
-  //   borderBottomWidth: 1,
-  //   fontSize: 18,
-  // },
-  // text: {
-  //   color: 'rgb(100, 100, 100)',
-  //   fontSize: 15,
-  //   marginBottom: 5,
-  // },
-  // imageContact: {
-  //   width: 150,
-  //   height: 150,
-  //   marginVertical: 30,
-  //   borderRadius: 150,
-  // },
-  // imageBox: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  // },
+  sellerBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 30,
+    marginBottom: 'auto',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+  nameSeller: {
+    color: 'rgb(100, 100, 100)',
+    fontSize: 20,
+    marginBottom: 5,
+  },
+  phoneSeller: {
+    color: 'rgb(100, 100, 100)',
+    fontSize: 15,
+  },
+  imageSeller: {
+    width: 70,
+    height: 70,
+    borderRadius: 70,
+  },
   flexRowBox: {
     display: 'flex',
     flexDirection: 'row',
@@ -70,24 +70,13 @@ export const styles = StyleSheet.create({
     textDecorationStyle: 'solid',
     color: 'green',
   },
-  // button: {
-  //   minWidth: 100,
-  //   padding: 10,
-  //   borderRadius: 10,
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   gap: 5,
-  // },
-  // buttonText: {
-  //   color: 'rgb(255, 255, 255)',
-  //   fontSize: 15,
-  // },
-  // delete: {
-  //   backgroundColor: 'rgb(255, 50, 50)',
-  // },
-  // call: {
-  //   backgroundColor: 'rgb(50, 150, 255)',
-  // },
+  imageBox: {
+    minWidth: 300,
+    height: 200,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 5,
+  },
   card: {
     position: 'relative',
     marginBottom: 10,
@@ -110,20 +99,57 @@ export const styles = StyleSheet.create({
   },
   productTitle: {
     color: 'rgb(100, 100, 100)',
-    fontSize: 15,
+    fontSize: 16,
   },
   image: {
     width: 60,
     height: 50,
+    marginRight: 5,
   },
   price: {
-    fontSize: 10,
+    fontSize: 15,
     color: 'green',
     position: 'absolute',
     top: 5,
-    right: 20,
+    right: 10,
   },
   description: {
-    fontSize: 10,
+    fontSize: 12,
+    marginTop: 10,
+  },
+  imageBoxProfile: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  btnEdit: {
+    position: 'absolute',
+    bottom: 5,
+    right: -10,
+    backgroundColor: 'green',
+    width: 50,
+    height: 50,
+    padding: 5,
+    borderRadius: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 120,
+  },
+
+  textArena: {
+    borderColor: 'rgb(150, 150, 150)',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 5,
+    padding: 3,
+  },
+  text: {
+    color: 'rgb(100, 100, 100)',
+    fontSize: 15,
+    marginBottom: 5,
   },
 });

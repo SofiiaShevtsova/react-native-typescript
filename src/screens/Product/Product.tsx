@@ -14,6 +14,7 @@ import {
 } from '../../redux/product/productsOperations';
 import {Button} from '../../components/Button';
 import {constants} from '../../commons/constants';
+import {formatText} from '../../helpers/formatText';
 
 export type ProductProps = {
   navigation: NativeStackNavigationProp<any>;
@@ -55,29 +56,38 @@ export const Product: React.FC<ProductProps> = ({route, navigation}) => {
   }, [dispatcher, productId]);
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, alignItems: 'center'}}>
       <View style={styles.imageBox}>
         <Image
           source={{
             uri: currentProduct?.images[0],
           }}
-          style={styles.imageContact}
           alt="product"
         />
       </View>
-      <Text style={styles.text}>{currentProduct?.title}</Text>
-      <Text style={styles.text}>{currentProduct?.price}</Text>
-      <Text style={styles.text}>{currentProduct?.description}</Text>
-      <View style={styles.btnBox}>
+      <View>
+        <Text style={styles.productTitle}>
+          {currentProduct?.title && formatText(currentProduct?.title, 25)}
+        </Text>
+        <Text style={styles.price}>{currentProduct?.price + '$'}</Text>
+        <Text style={styles.description}>{currentProduct?.description}</Text>
+      </View>
+      <View style={styles.sellerBox}>
         <Image
           source={{
             uri: currentProduct?.seller.avatar,
           }}
-          style={styles.imageContact}
+          style={styles.imageSeller}
           alt="user"
         />
-        <Text style={styles.text}>{currentProduct?.seller.fullName}</Text>
-        <Text style={styles.text}>{currentProduct?.seller.phoneNumber}</Text>
+        <View>
+          <Text style={styles.nameSeller}>
+            {currentProduct?.seller.fullName}
+          </Text>
+          <Text style={styles.phoneSeller}>
+            {currentProduct?.seller.phoneNumber}
+          </Text>
+        </View>
         <Button name={'Call Seller'} onPress={callNumber} color={'green'} />
       </View>
       {user?.id === currentProduct?.seller.id && (

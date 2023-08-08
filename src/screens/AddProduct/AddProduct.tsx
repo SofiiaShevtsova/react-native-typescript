@@ -26,6 +26,9 @@ export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
     string,
     Dispatch<SetStateAction<string>>,
   ] = useState('');
+  const [isShow, setIsShowed]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState(false);
+
   const dispatcher = useAppDispatch();
 
   const changeTitle = (text: string) => {
@@ -44,6 +47,10 @@ export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
   };
 
   const onAddBtnClick = () => {
+    if (!title || !price || !description) {
+      setIsShowed(true);
+      return;
+    }
     const image = 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png';
     const newProduct: AddProductType = {
       title,
@@ -95,37 +102,30 @@ export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Input {...inputTitleInfo} />
-          <ErrorText text={'Title is required!'} isShowed={!!title} />
+          <ErrorText text={'Title is required!'} isShowed={isShow} />
           <Input {...inputPriceInfo} />
-          <ErrorText text={'Price is required!'} isShowed={!!price} />
-          <Text
-            style={{
-              ...styles.text,
-              color: description ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
-            }}>
-            Description
-          </Text>
+          <ErrorText text={'Price is required!'} isShowed={isShow} />
+          <Text style={styles.text}>Description</Text>
           <TextInput
             multiline={true}
             numberOfLines={4}
             placeholder="Type here"
             placeholderTextColor="#BDBDBD"
-            style={styles.input}
+            style={styles.textArena}
             value={description}
             onChangeText={changeDescription}
           />
-          <ErrorText
-            text={'Description is required!'}
-            isShowed={!!description}
-          />
-          <Button {...btnAddProduct}>
-            <Ionicons name="add-outline" color="#000000" size={20} />
-          </Button>
-          <Button {...btnAddImage}>
-            <Ionicons name="image" color="#000000" size={20} />
-          </Button>
+          <ErrorText text={'Description is required!'} isShowed={isShow} />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
+      <View style={styles.flexRowBox}>
+        <Button {...btnAddProduct}>
+          <Ionicons name="add-outline" color="#ffffff" size={20} />
+        </Button>
+        <Button {...btnAddImage}>
+          <Ionicons name="image" color="#ffffff" size={20} />
+        </Button>
+      </View>
     </View>
   );
 };

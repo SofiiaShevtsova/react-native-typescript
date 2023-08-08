@@ -35,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   button: {
-    minWidth: 100,
+    width: 160,
     padding: 10,
     borderRadius: 10,
     display: 'flex',

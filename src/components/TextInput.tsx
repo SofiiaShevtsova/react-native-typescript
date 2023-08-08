@@ -27,13 +27,7 @@ export const Input: React.FC<InputProps> = ({
   );
   return (
     <>
-      <Text
-        style={{
-          ...styles.text,
-          color: value ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
-        }}>
-        {name}
-      </Text>
+      <Text style={styles.text}>{name}</Text>
       <TextInput
         keyboardType={type}
         placeholder={placeholder}
@@ -48,8 +42,8 @@ export const Input: React.FC<InputProps> = ({
 
 export const styles = StyleSheet.create({
   input: {
-    width: '100%',
-    marginBottom: 20,
+    minWidth: 300,
+    marginBottom: 10,
     paddingVertical: 5,
     borderBottomColor: 'rgb(150, 150, 150)',
     borderBottomWidth: 1,

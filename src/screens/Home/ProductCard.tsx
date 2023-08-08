@@ -4,6 +4,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {styles} from '../../styles/styles';
 import {Product} from '../../commons/type';
 import {constants} from '../../commons/constants';
+import {formatText} from '../../helpers/formatText';
 
 type ProductCardProps = {
   product: Product;
@@ -14,20 +15,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   navigation,
 }) => {
-  const formatText = (text: string): string => {
-    if (text.length > 100) {
-      return text.slice(0, 99) + '...';
-    }
-    return text;
-  };
-
-  const formatTitle = (title: string): string => {
-    if (title.length > 15) {
-      return title.slice(0, 15) + '...';
-    }
-    return title;
-  };
-
   return (
     <View style={styles.card}>
       <Pressable
@@ -43,10 +30,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           />
           <View>
             <Text style={styles.productTitle}>
-              {formatTitle(product.title)}
+              {formatText(product.title, 15)}
             </Text>
             <Text style={styles.description}>
-              {formatText(product.description)}
+              {formatText(product.description, 100)}
             </Text>
           </View>
           <Text style={styles.price}>{product.price + '$'}</Text>
