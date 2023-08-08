@@ -1,2 +1,2 @@
 export const filter = (query: string, array: any[]): any[] =>
-  array.filter(item => item.name.toLowerCase().search(query) !== -1);
+  array.filter(item => item.title.toLowerCase().search(query) !== -1);
