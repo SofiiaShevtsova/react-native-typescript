@@ -87,7 +87,7 @@ export const Home: React.FC<NavigationProps> = ({navigation}) => {
       <Pressable
         style={styles.buttonAdd}
         onPress={() => navigation.navigate(constants.ROUTES.ADD_PRODUCT)}>
-        <AntDesign name="pluscircle" color="rgb(0, 150, 255)" size={70} />
+        <AntDesign name="pluscircle" color="green" size={70} />
       </Pressable>
     </>
   );

@@ -1,6 +1,7 @@
 interface Constants {
   ROUTES: {
     HOME: string;
+    HOME_MAIN: string;
     REGISTRATION: string;
     LOGIN: string;
     PRODUCT: string;
@@ -28,6 +29,7 @@ interface Constants {
 export const constants: Constants = {
   ROUTES: {
     HOME: 'Home',
+    HOME_MAIN: ' Home ',
     REGISTRATION: 'Sign up',
     LOGIN: 'Sign in',
     PRODUCT: 'Product Details',

@@ -11,8 +11,8 @@ export const styles = StyleSheet.create({
   },
   search: {
     position: 'absolute',
-    top: 30,
-    left: 30,
+    top: 10,
+    left: 10,
   },
   inputHome: {
     marginBottom: 20,
@@ -29,54 +29,67 @@ export const styles = StyleSheet.create({
     right: 20,
     bottom: 30,
   },
-  input: {
-    width: '100%',
-    marginBottom: 20,
-    paddingVertical: 5,
-    borderBottomColor: 'rgb(150, 150, 150)',
-    borderBottomWidth: 1,
-    fontSize: 18,
-  },
-  text: {
+  title: {
     color: 'rgb(100, 100, 100)',
-    fontSize: 15,
+    fontSize: 40,
     marginBottom: 5,
+    textAlign: 'center',
   },
-  imageContact: {
-    width: 150,
-    height: 150,
-    marginVertical: 30,
-    borderRadius: 150,
-  },
-  imageBox: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  btnBox: {
+  // input: {
+  //   width: '100%',
+  //   marginBottom: 20,
+  //   paddingVertical: 5,
+  //   borderBottomColor: 'rgb(150, 150, 150)',
+  //   borderBottomWidth: 1,
+  //   fontSize: 18,
+  // },
+  // text: {
+  //   color: 'rgb(100, 100, 100)',
+  //   fontSize: 15,
+  //   marginBottom: 5,
+  // },
+  // imageContact: {
+  //   width: 150,
+  //   height: 150,
+  //   marginVertical: 30,
+  //   borderRadius: 150,
+  // },
+  // imageBox: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  // },
+  flexRowBox: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 20,
+    gap: 10,
     justifyContent: 'center',
+    marginTop: 10,
   },
-  button: {
-    minWidth: 100,
-    padding: 10,
-    borderRadius: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 5,
+  linkAuth: {
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
+    color: 'green',
   },
-  buttonText: {
-    color: 'rgb(255, 255, 255)',
-    fontSize: 15,
-  },
-  delete: {
-    backgroundColor: 'rgb(255, 50, 50)',
-  },
-  call: {
-    backgroundColor: 'rgb(50, 150, 255)',
-  },
+  // button: {
+  //   minWidth: 100,
+  //   padding: 10,
+  //   borderRadius: 10,
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   gap: 5,
+  // },
+  // buttonText: {
+  //   color: 'rgb(255, 255, 255)',
+  //   fontSize: 15,
+  // },
+  // delete: {
+  //   backgroundColor: 'rgb(255, 50, 50)',
+  // },
+  // call: {
+  //   backgroundColor: 'rgb(50, 150, 255)',
+  // },
   card: {
+    position: 'relative',
     marginBottom: 10,
     marginHorizontal: 20,
     padding: 10,
@@ -90,34 +103,25 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 5,
+    overflow: 'hidden',
   },
   cardContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
-  name: {
-    marginLeft: 20,
+  productTitle: {
     color: 'rgb(100, 100, 100)',
     fontSize: 15,
   },
   image: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
-  },
-  textError: {
-    fontSize: 10,
-    color: 'rgb(255, 0, 0)',
-    marginBottom: 10,
-  },
-  add: {
-    backgroundColor: 'rgb(50, 150, 255)',
-  },
-  title: {
-    fontSize: 10,
+    width: 60,
+    height: 50,
   },
   price: {
     fontSize: 10,
+    color: 'green',
+    position: 'absolute',
+    top: 5,
+    right: 20,
   },
   description: {
     fontSize: 10,

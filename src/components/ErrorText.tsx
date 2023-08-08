@@ -12,7 +12,7 @@ export const ErrorText: React.FC<ErrorTextProps> = ({text, isShowed}) => {
       <Text
         style={{
           ...styles.textError,
-          color: isShowed ? 'rgb(100, 100, 100)' : 'rgb(255, 0, 0)',
+          opacity: isShowed ? 1 : 0,
         }}>
         {text}
       </Text>

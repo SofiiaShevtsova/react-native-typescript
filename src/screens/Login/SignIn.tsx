@@ -15,14 +15,15 @@ import {Input, InputProps} from '../../components/TextInput';
 import {ErrorText} from '../../components/ErrorText';
 import {Button} from '../../components/Button';
 import {constants} from '../../commons/constants';
+import {styles} from '../../styles/styles';
 
 export const Login: React.FC<NavigationProps> = ({navigation}) => {
   const [email, setEmail]: [string, Dispatch<SetStateAction<string>>] =
     useState('');
   const [password, setPassword]: [string, Dispatch<SetStateAction<string>>] =
     useState('');
-  const [showPass, setShowPass]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState(true);
+  const [isShow, setIsShowed]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState(false);
 
   const dispatcher = useAppDispatch();
 
@@ -34,14 +35,17 @@ export const Login: React.FC<NavigationProps> = ({navigation}) => {
     const setText = text.trim();
     setPassword(setText);
   };
-  const showPassword = () => setShowPass(!showPass);
 
   const onSignIn = () => {
-    const user = {email, password};
-    dispatcher(logIn(user));
+    if (!email || !email.endsWith('@gmail.com') || password.length < 4) {
+      setIsShowed(true);
+    } else {
+      const user = {email, password};
+      dispatcher(logIn(user));
 
-    setEmail('');
-    setPassword('');
+      setEmail('');
+      setPassword('');
+    }
   };
 
   const keyboardHide = () => {
@@ -61,32 +65,34 @@ export const Login: React.FC<NavigationProps> = ({navigation}) => {
     placeholder: 'Password',
     defaultValue: password,
     onChange: passwordHandler,
-    secureTextEntry: showPass,
   };
 
   return (
-    <View>
+    <View
+      style={{...styles.container, paddingVertical: 50, alignItems: 'center'}}>
+      <Text style={styles.title}>Sign in</Text>
       <TouchableWithoutFeedback onPress={keyboardHide}>
-        <Text>Log in</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <Input {...inputEmailInfo} />
-          <ErrorText text={'Email is required!'} isShowed={!!email} />
+          <ErrorText
+            text={'Email is required! End with @gmail.com'}
+            isShowed={isShow}
+          />
           <View>
             <Input {...inputPasswordInfo} />
-            <Pressable onPress={showPassword}>
-              <Text>Show</Text>
-            </Pressable>
-            <ErrorText text={'Entered password!'} isShowed={!!password} />
+            <ErrorText text={'Entered password!'} isShowed={isShow} />
           </View>
         </KeyboardAvoidingView>
-        <Button name={'Sign in'} onPress={onSignIn} color={'green'} />
+      </TouchableWithoutFeedback>
+      <Button name={'Sign in'} onPress={onSignIn} color={'green'} />
+      <View style={styles.flexRowBox}>
         <Text>Don't have an account?</Text>
         <Pressable
           onPress={() => navigation.navigate(constants.ROUTES.REGISTRATION)}>
-          <Text>Sign up</Text>
+          <Text style={styles.linkAuth}>Sign up</Text>
         </Pressable>
-      </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 };

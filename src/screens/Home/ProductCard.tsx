@@ -14,6 +14,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   product,
   navigation,
 }) => {
+  const formatText = (text: string): string => {
+    if (text.length > 100) {
+      return text.slice(0, 99) + '...';
+    }
+    return text;
+  };
+
+  const formatTitle = (title: string): string => {
+    if (title.length > 15) {
+      return title.slice(0, 15) + '...';
+    }
+    return title;
+  };
+
   return (
     <View style={styles.card}>
       <Pressable
@@ -27,9 +41,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             }}
             style={styles.image}
           />
-          <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.price}>{product.price}</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <View>
+            <Text style={styles.productTitle}>
+              {formatTitle(product.title)}
+            </Text>
+            <Text style={styles.description}>
+              {formatText(product.description)}
+            </Text>
+          </View>
+          <Text style={styles.price}>{product.price + '$'}</Text>
         </View>
       </Pressable>
     </View>

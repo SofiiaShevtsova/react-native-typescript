@@ -9,13 +9,9 @@ const App = () => {
   const user = useSelector(getUser);
   return (
     <Provider store={store}>
-      {user ? (
-        <NavigationContainer>
-          <TabsNavigation />
-        </NavigationContainer>
-      ) : (
-        <NavigationPublicRoutes />
-      )}
+      <NavigationContainer>
+        {user ? <TabsNavigation /> : <NavigationPublicRoutes />}
+      </NavigationContainer>
     </Provider>
   );
 };
