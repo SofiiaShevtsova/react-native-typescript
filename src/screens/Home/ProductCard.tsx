@@ -18,7 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <View style={styles.card}>
       <Pressable
         onPress={() =>
-          navigation.navigate(constants.ROUTES.PRODUCT, {product})
+          navigation.navigate(constants.ROUTES.PRODUCT, {product: product.id})
         }>
         <View style={styles.cardContainer}>
           <Image

@@ -1,9 +1,15 @@
 import {createSlice, isAnyOf} from '@reduxjs/toolkit';
-import {getAllProducts, addProduct, removeProduct} from './productsOperations';
+import {
+  getAllProducts,
+  addProduct,
+  removeProduct,
+  getOneProduct,
+} from './productsOperations';
 import {ProductSliceState} from '../../commons/type';
 
 const initialState: ProductSliceState = {
   productsList: [],
+  currentProduct: null,
   isLoading: false,
 };
 
@@ -12,6 +18,10 @@ export const productsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    builder.addCase(getOneProduct.fulfilled, (state, {payload}) => {
+      state.currentProduct = payload;
+      state.isLoading = false;
+    });
     builder
       .addMatcher(
         isAnyOf(
@@ -30,9 +40,10 @@ export const productsSlice = createSlice({
           getAllProducts.pending,
           addProduct.pending,
           removeProduct.pending,
+          getOneProduct.pending,
         ),
         state => {
-          state.isLoading = false;
+          state.isLoading = true;
         },
       )
       .addMatcher(
@@ -40,9 +51,11 @@ export const productsSlice = createSlice({
           getAllProducts.rejected,
           addProduct.rejected,
           removeProduct.rejected,
+          getOneProduct.rejected,
         ),
         state => {
           state.isLoading = false;
+          state.currentProduct = null;
         },
       );
   },

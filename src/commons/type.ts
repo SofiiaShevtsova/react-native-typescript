@@ -9,6 +9,7 @@ export type NavigationProps = {
 
 export type ProductSliceState = {
   productsList: Product[] | never[];
+  currentProduct: OneProduct | null;
   isLoading: boolean;
 };
 
@@ -23,6 +24,16 @@ export type Product = {
   description: string;
   price: number;
   preview: string;
+  createdAt: string;
+};
+
+export type OneProduct = {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  images: string[];
+  seller: User;
   createdAt: string;
 };
 

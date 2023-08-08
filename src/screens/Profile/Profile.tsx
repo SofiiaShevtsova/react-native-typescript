@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Pressable, Image} from 'react-native';
+import {View, Pressable, Image, Text} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {logOut} from '../../redux/auth/authOperations';
 import {useAppDispatch} from '../../redux/store';
@@ -33,6 +33,7 @@ export const Profile: Element = () => {
 
   return (
     <View>
+      <Text>Profile</Text>
       <View>
         <Image
           source={{

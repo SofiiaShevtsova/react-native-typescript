@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {apiRequest} from '../../services/apiServices';
 import {constants} from '../../commons/constants';
-import {AddProductType, Product, State} from '../../commons/type';
+import {AddProductType, OneProduct, Product, State} from '../../commons/type';
 
 export const getAllProducts = createAsyncThunk(
   constants.ACTIONS.GET_PRODUCTS,
@@ -9,6 +9,20 @@ export const getAllProducts = createAsyncThunk(
     try {
       const list = await apiRequest.getRequest(constants.REQUEST_API.PRODUCTS);
       return list;
+    } catch (error: any) {
+      return rejectWithValue(error.status);
+    }
+  },
+);
+
+export const getOneProduct = createAsyncThunk(
+  constants.ACTIONS.GET_ONE_PRODUCT,
+  async (productId: string, {rejectWithValue}) => {
+    try {
+      const product: OneProduct = await apiRequest.getRequest(
+        constants.REQUEST_API.PRODUCTS + '/' + productId,
+      );
+      return product;
     } catch (error: any) {
       return rejectWithValue(error.status);
     }
