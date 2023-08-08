@@ -16,6 +16,7 @@ import {ErrorText} from '../../components/ErrorText';
 import {Button, ButtonProps} from '../../components/Button';
 import {addProduct} from '../../redux/product/productsOperations';
 import {AddProductType, NavigationProps} from '../../commons/type';
+import {constants} from '../../commons/constants';
 
 export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
   const [title, setTitle]: [string, Dispatch<SetStateAction<string>>] =
@@ -58,7 +59,7 @@ export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
       preview: image,
     };
     dispatcher(addProduct(newProduct));
-    navigation.navigate('Home');
+    navigation.navigate(constants.ROUTES.HOME);
   };
 
   const onAddImageClick = () => {
