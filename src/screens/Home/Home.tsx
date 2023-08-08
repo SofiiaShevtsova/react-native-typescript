@@ -18,6 +18,7 @@ import {styles} from '../../styles/styles';
 import {getAllProducts as getProductsList} from '../../redux/selectorAll';
 import {getAllProducts as getAll} from '../../redux/product/productsOperations';
 import {NavigationProps, Product} from '../../commons/type';
+import {constants} from '../../commons/constants';
 
 export const Home: React.FC<NavigationProps> = ({navigation}) => {
   const productsList: Product[] = useSelector(getProductsList);
@@ -85,7 +86,7 @@ export const Home: React.FC<NavigationProps> = ({navigation}) => {
       </View>
       <Pressable
         style={styles.buttonAdd}
-        onPress={() => navigation.navigate('Add Contact')}>
+        onPress={() => navigation.navigate(constants.ROUTES.ADD_PRODUCT)}>
         <AntDesign name="pluscircle" color="rgb(0, 150, 255)" size={70} />
       </Pressable>
     </>

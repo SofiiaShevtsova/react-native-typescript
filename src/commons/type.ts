@@ -37,6 +37,6 @@ export type User = {
   fullName: string;
   email: string;
   phoneNumber: string;
-  avatar: string;
+  avatar?: string;
   createdAt?: string;
 };
