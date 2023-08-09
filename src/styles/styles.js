@@ -39,8 +39,8 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     gap: 10,
-    marginTop: 30,
-    marginBottom: 'auto',
+    marginTop: 80,
+    marginBottom: 10,
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
   },
@@ -71,11 +71,9 @@ export const styles = StyleSheet.create({
     color: 'green',
   },
   imageBox: {
-    minWidth: 300,
-    height: 200,
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 5,
+    width: 300,
+    height: 250,
+    margin: 5,
   },
   card: {
     position: 'relative',
@@ -117,10 +115,6 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 10,
   },
-  imageBoxProfile: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   btnEdit: {
     position: 'absolute',
     bottom: 5,
@@ -139,7 +133,10 @@ export const styles = StyleSheet.create({
     height: 120,
     borderRadius: 120,
   },
-
+  imageBoxProfile: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textArena: {
     borderColor: 'rgb(150, 150, 150)',
     borderWidth: 1,

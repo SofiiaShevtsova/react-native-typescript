@@ -56,7 +56,7 @@ export const AddProduct: React.FC<NavigationProps> = ({navigation}) => {
     const newProduct: AddProductType = {
       title,
       description,
-      preview: image,
+      images: [image],
     };
     dispatcher(addProduct(newProduct));
     navigation.navigate(constants.ROUTES.HOME);

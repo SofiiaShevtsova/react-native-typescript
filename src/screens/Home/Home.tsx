@@ -37,10 +37,8 @@ export const Home: React.FC<NavigationProps> = ({navigation}) => {
   };
 
   useEffect(() => {
-    if (!productsList.length) {
-      dispatcher(getAll());
-    }
-  }, [dispatcher, productsList.length]);
+    dispatcher(getAll());
+  }, [dispatcher]);
 
   useEffect(() => {
     if (filterQuery) {
