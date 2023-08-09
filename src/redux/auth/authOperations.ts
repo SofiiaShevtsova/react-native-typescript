@@ -32,7 +32,6 @@ export const logIn = createAsyncThunk(
           exixtsUser,
         );
       apiRequest.setToken(token);
-
       return user;
     } catch (error: any) {
       return rejectWithValue(error.status);

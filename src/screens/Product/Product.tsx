@@ -1,7 +1,15 @@
 import React, {useEffect} from 'react';
-import {View, Image, Text, Linking, Alert, Platform} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  Linking,
+  Alert,
+  Platform,
+  FlatList,
+} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {styles} from '../../styles/styles';
 import {RouteProp} from '@react-navigation/native';
 import {OneProduct, User} from '../../commons/type';
@@ -57,15 +65,24 @@ export const Product: React.FC<ProductProps> = ({route, navigation}) => {
 
   return (
     <View style={{...styles.container, alignItems: 'center'}}>
-      <View style={styles.imageBox}>
-        <Image
-          source={{
-            uri: currentProduct?.images[0],
-          }}
-          alt="product"
+      {currentProduct && currentProduct?.images.length > 0 && (
+        <FlatList
+          data={currentProduct?.images}
+          horizontal={true}
+          style={{height: 250}}
+          keyExtractor={(item: string) => item}
+          renderItem={({item}: {item: string}) => (
+            <Image
+              source={{
+                uri: item,
+              }}
+              style={styles.imageBox}
+              alt="product"
+            />
+          )}
         />
-      </View>
-      <View>
+      )}
+      <View style={{alignItems: 'flex-start', minWidth: 300}}>
         <Text style={styles.productTitle}>
           {currentProduct?.title && formatText(currentProduct?.title, 25)}
         </Text>
@@ -88,14 +105,17 @@ export const Product: React.FC<ProductProps> = ({route, navigation}) => {
             {currentProduct?.seller.phoneNumber}
           </Text>
         </View>
-        <Button name={'Call Seller'} onPress={callNumber} color={'green'} />
+        <Button name={'Call Seller'} onPress={callNumber} color={'green'}>
+          <Ionicons name="call" color="#ffffff" size={20} />
+        </Button>
       </View>
       {user?.id === currentProduct?.seller.id && (
         <Button
           name={'Delete Product'}
           onPress={onDeleteProductClick}
-          color={'red'}
-        />
+          color={'red'}>
+          <Ionicons name="close-sharp" color="#ffffff" size={30} />
+        </Button>
       )}
     </View>
   );

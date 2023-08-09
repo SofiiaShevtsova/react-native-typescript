@@ -40,7 +40,7 @@ export type OneProduct = {
 export type AddProductType = {
   title: string;
   description: string;
-  preview: string;
+  images: string[];
 };
 
 export type User = {
